@@ -1,0 +1,9 @@
+package com.sau.dims.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("api/adviser")
+public class AdviserController {
+}
