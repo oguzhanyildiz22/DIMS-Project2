@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Adviser</title>
+</head>
+<body>
+<h2>Add Adviser</h2>
+<form th:action="@{/adviser/add}" method="post">
+    <div>
+        <label for="name">Name: </label>
+        <input id="name" th:field="${adviser.name}">
+    </div>
+    <div>
+        <label for="address">Department: </label>
+        <input id="address" th:field="${adviser.department}">
+    </div>
+    <div>
+        <button type="submit">Add</button>
+    </div>
+</form>
+</body>
+</html>

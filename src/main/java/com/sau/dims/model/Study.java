@@ -23,6 +23,6 @@ public class Study {
     private String title;
     private String description;
 
-    @OneToMany(mappedBy = "study",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id",cascade = CascadeType.ALL)
     private List<AdviserStudy> adviserStudies = new ArrayList<>();
 }

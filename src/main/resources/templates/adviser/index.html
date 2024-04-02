@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<style>
+    table, th, td {
+        border: black 1px solid;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Advisers</title>
+</head>
+<body>
+<h2>Adviser List</h2>
+
+<button id="add" onclick="location.href='/adviser/add';">Add</button>
+<br><br>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>DEPARTMENT</th>
+        <th>OPERATIONS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c:${advisers}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.name}"></td>
+        <td th:text="${c.department}"></td>
+        <td>
+            <a th:href="@{'/adviser/update/' + ${c.id}}">Update</a>
+            <a th:param="${c.id}" th:onclick="javascript:Delete(this.getAttribute('param'))">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    function Delete(id) {
+        let ret = confirm(id + " will be deleted!");
+        if (ret == false) return;
+        $.ajax({
+            url: "/adviser/delete/"+id,
+            type: "post",
+            success: function (ret) {
+                window.location.href ='/adviser';
+            },
+            error: function (error) {
+                console.log("ERROR");
+            }
+        });
+
+    }
+</script>
