@@ -26,7 +26,7 @@ public class Adviser {
 
     private String department;
 
-    @OneToMany(mappedBy = "adviser",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id",cascade = CascadeType.ALL)
     private List<AdviserStudy> adviserStudies = new ArrayList<>();
 
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Adviser</title>
+</head>
+<body>
+<h2>Update Adviser</h2>
+<form th:action="@{/adviser/update}" th:object="${adviser}" method="post">
+    <input type="hidden" th:field="${adviser.id}" >
+    <div>
+        <label for="name">Name: </label>
+        <input id="name" th:field="${adviser.name}" th:value="${adviser.name}">
+    </div>
+    <div>
+        <label for="address">Department: </label>
+        <input id="address" th:field="${adviser.department}" th:value="${adviser.department}">
+    </div>
+    <div>
+        <button type="submit">Update</button>
+    </div>
+</form>
+</body>
+</html>
