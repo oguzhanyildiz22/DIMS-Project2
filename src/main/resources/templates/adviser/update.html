@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
     <meta charset="UTF-8">
     <title>Update Adviser</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
 <h2>Update Adviser</h2>
 <form th:action="@{/adviser/update}" th:object="${adviser}" method="post">
     <input type="hidden" th:field="${adviser.id}" >
-    <div>
-        <label for="name">Name: </label>
-        <input id="name" th:field="${adviser.name}" th:value="${adviser.name}">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input class="form-control" id="name" th:field="${adviser.name}" th:value="${adviser.name}">
     </div>
-    <div>
-        <label for="address">Department: </label>
-        <input id="address" th:field="${adviser.department}" th:value="${adviser.department}">
+    <div class="mb-3">
+        <label for="department" class="form-label">Department</label>
+        <input id="department" th:field="${adviser.department}" class="form-control" th:value="${adviser.department}">
     </div>
-    <div>
-        <button type="submit">Update</button>
-    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-info">Back</button>
 </form>
+
 </body>
 </html>
