@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -24,5 +21,5 @@ public class Study {
     private String description;
 
     @OneToMany(mappedBy = "id",cascade = CascadeType.ALL)
-    private List<AdviserStudy> adviserStudies = new ArrayList<>();
+    private List<AdviserStudy> adviserStudies;
 }

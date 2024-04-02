@@ -18,7 +18,7 @@ public class AdviserStudy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne
     @JoinColumn(name = "adviser_id")
     private Adviser adviser;
 
