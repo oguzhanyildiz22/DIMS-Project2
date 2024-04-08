@@ -37,6 +37,9 @@ public class AdviserController {
     }
     @PostMapping("/adviser/add")
     public String addAdviser(@ModelAttribute Adviser adviser){
+        adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
+        adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
+
         adviserRepository.save(adviser);
         return "redirect:/adviser";
     }
@@ -50,6 +53,9 @@ public class AdviserController {
     }
     @PostMapping("/adviser/update")
     public String updateAdviser(@ModelAttribute Adviser adviser){
+        adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
+        adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
+
         adviserRepository.save(adviser);
         return "redirect:/adviser";
     }
@@ -57,5 +63,9 @@ public class AdviserController {
     public String deleteAdviser(@PathVariable int id){
         adviserRepository.deleteById(id);
         return "redirect:/adviser";
+    }
+
+    private String convertFirstLetterToUpperCase(String input){
+        return input.substring(0,1).toUpperCase() + input.substring(1);
     }
 }
