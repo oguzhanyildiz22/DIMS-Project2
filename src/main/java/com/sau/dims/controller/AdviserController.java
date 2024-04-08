@@ -2,15 +2,17 @@ package com.sau.dims.controller;
 
 import com.sau.dims.model.Adviser;
 import com.sau.dims.repository.AdviserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /*
  GET adviser page
@@ -18,6 +20,7 @@ import java.util.List;
  Update adviser
  Delete adviser
  */
+
 @Controller
 public class AdviserController {
     @Autowired
@@ -36,7 +39,10 @@ public class AdviserController {
         return "adviser/add";
     }
     @PostMapping("/adviser/add")
-    public String addAdviser(@ModelAttribute Adviser adviser){
+    public String addAdviser(@Valid Adviser adviser, BindingResult result){
+        if (result.hasErrors()){
+            return "adviser/add";
+        }
         adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
         adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
 
@@ -52,7 +58,10 @@ public class AdviserController {
         return "/adviser/update";
     }
     @PostMapping("/adviser/update")
-    public String updateAdviser(@ModelAttribute Adviser adviser){
+    public String updateAdviser(@Valid Adviser adviser, BindingResult result){
+        if (result.hasErrors()){
+            return "/adviser/update";
+        }
         adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
         adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
 
@@ -65,7 +74,7 @@ public class AdviserController {
                 ()-> {throw new RuntimeException("Adviser not found!:"+id);}
         );
         model.addAttribute("adviser", adviser);
-        return "/adviser/delete";
+        return "redirect:/adviser";
     }
     @PostMapping("/adviser/delete/{id}")
     public String deleteAdviser(@PathVariable int id){
@@ -74,6 +83,6 @@ public class AdviserController {
     }
 
     private String convertFirstLetterToUpperCase(String input){
-        return input.substring(0,1).toUpperCase() + input.substring(1);
+        return Pattern.compile("\\b(\\w)").matcher(input).replaceAll(m -> m.group().toUpperCase());
     }
 }

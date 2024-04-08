@@ -18,19 +18,21 @@
 </head>
 <body>
 <h2>Update Adviser</h2>
-<form th:action="@{/adviser/update}" th:object="${adviser}" method="post">
+<form th:action="@{/adviser/update}" method="post">
     <input type="hidden" th:field="${adviser.id}" >
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input class="form-control" id="name" th:field="${adviser.name}" th:value="${adviser.name}">
+        <span th:if="${#fields.hasErrors('adviser.name')}" th:errorclass="error" th:errors="*{adviser.name}"></span>
     </div>
     <div class="mb-3">
         <label for="department" class="form-label">Department</label>
         <input id="department" th:field="${adviser.department}" class="form-control" th:value="${adviser.department}">
+        <span th:if="${#fields.hasErrors('adviser.department')}" th:errorclass="error" th:errors="*{adviser.department}"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Update</button>
-    <button type="submit" class="btn btn-info">Back</button>
+    <a href="/adviser" class="btn btn-info">Back</a>
 </form>
 
 </body>
