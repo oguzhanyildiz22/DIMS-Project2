@@ -22,14 +22,16 @@
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input class="form-control" id="name" th:field="${adviser.name}">
+        <span th:if="${#fields.hasErrors('adviser.name')}" th:errorclass="error" th:errors="*{adviser.name}"></span>
     </div>
     <div class="mb-3">
         <label for="department" class="form-label">Department</label>
         <input id="department" th:field="${adviser.department}" class="form-control">
+        <span th:if="${#fields.hasErrors('adviser.department')}" th:errorclass="error" th:errors="*{adviser.department}"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
-    <button type="submit" class="btn btn-info">Back</button>
+    <a href="/adviser" class="btn btn-info">Back</a>
 </form>
 </body>
 </html>
