@@ -59,6 +59,14 @@ public class AdviserController {
         adviserRepository.save(adviser);
         return "redirect:/adviser";
     }
+    @GetMapping("/adviser/delete/{id}")
+    public String deleteAdviser(@PathVariable int id, Model model){
+        Adviser adviser = adviserRepository.findById(id).orElseThrow(
+                ()-> {throw new RuntimeException("Adviser not found!:"+id);}
+        );
+        model.addAttribute("adviser", adviser);
+        return "/adviser/delete";
+    }
     @PostMapping("/adviser/delete/{id}")
     public String deleteAdviser(@PathVariable int id){
         adviserRepository.deleteById(id);
