@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /*
@@ -28,7 +27,7 @@ public class AdviserController {
 
     @GetMapping("/adviser")
     public String getAdviser(Model model){
-        List<Adviser> advisers = adviserRepository.findAll();
+        List<Adviser> advisers = adviserRepository.findAllDescById();
         model.addAttribute("advisers", advisers);
         return "adviser/index";
     }
@@ -41,7 +40,7 @@ public class AdviserController {
     @PostMapping("/adviser/add")
     public String addAdviser(@Valid Adviser adviser, BindingResult result){
         if (result.hasErrors()){
-            return "adviser/add";
+            return "redirect:/adviser";
         }
         adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
         adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
@@ -50,17 +49,16 @@ public class AdviserController {
         return "redirect:/adviser";
     }
     @GetMapping("/adviser/update/{id}")
-    public String updateAdviser(@PathVariable int id,Model model){
+    public Adviser updateAdviser(@PathVariable int id){
         Adviser adviser = adviserRepository.findById(id).orElseThrow(
                 ()-> {throw new RuntimeException("Adviser not found!:"+id);}
         );
-        model.addAttribute("adviser",adviser);
-        return "/adviser/update";
+        return adviser;
     }
-    @PostMapping("/adviser/update")
+    @RequestMapping(value = "/adviser/update",method = {RequestMethod.PUT, RequestMethod.GET})
     public String updateAdviser(@Valid Adviser adviser, BindingResult result){
         if (result.hasErrors()){
-            return "/adviser/update";
+            return "redirect:/adviser";
         }
         adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
         adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
