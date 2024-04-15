@@ -93,7 +93,7 @@
 
 <!-- Update Modal -->
 <div class="modal fade" id="updateAdviserModalCenter" tabindex="-1" role="dialog" aria-labelledby="updateAdviserModalCenterTitle" aria-hidden="true">
-    <form th:action="@{/adviser/update}" method="put">
+    <form th:action="@{/adviser/update}" method="post">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -103,6 +103,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <!-- Hidden input for ID -->
+                    <input type="hidden" id="IdEdit" name="Id">
                     <div class="form-group">
                         <label for="nameEdit" class="col-form-label">Name:</label>
                         <input type="text" class="form-control" id="nameEdit" name="name">

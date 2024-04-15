@@ -4,6 +4,7 @@ import com.sau.dims.model.Adviser;
 import com.sau.dims.repository.AdviserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,13 +50,14 @@ public class AdviserController {
         return "redirect:/adviser";
     }
     @GetMapping("/adviser/update/{id}")
-    public Adviser updateAdviser(@PathVariable int id){
+    @ResponseBody
+    public Adviser updateAdviser(@PathVariable int id,Model model){
         Adviser adviser = adviserRepository.findById(id).orElseThrow(
                 ()-> {throw new RuntimeException("Adviser not found!:"+id);}
         );
         return adviser;
     }
-    @RequestMapping(value = "/adviser/update",method = {RequestMethod.PUT, RequestMethod.GET})
+    @PostMapping("/adviser/update")
     public String updateAdviser(@Valid Adviser adviser, BindingResult result){
         if (result.hasErrors()){
             return "redirect:/adviser";
