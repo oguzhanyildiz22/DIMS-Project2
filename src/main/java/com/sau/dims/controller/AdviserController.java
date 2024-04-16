@@ -55,6 +55,7 @@ public class AdviserController {
         Adviser adviser = adviserRepository.findById(id).orElseThrow(
                 ()-> {throw new RuntimeException("Adviser not found!:"+id);}
         );
+        System.out.println(adviser);
         return adviser;
     }
     @PostMapping("/adviser/update")
@@ -62,6 +63,7 @@ public class AdviserController {
         if (result.hasErrors()){
             return "redirect:/adviser";
         }
+        System.out.println("2: " + adviser );
         adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
         adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
 
