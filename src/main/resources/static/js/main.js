@@ -20,5 +20,25 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $('#modals-container').load('modals/adviser/modals.html');
+});
+
+function Delete(id) {
+    console.log(id);
+    let ret = confirm(`${id} will be deleted!`);
+    if (!ret) return;
+    $.ajax({
+        url: `/adviser/delete/${id}`,
+        type: "POST",
+        success: function() {
+            window.location.href = '/adviser';
+        },
+        error: function(xhr, status, error) {
+            console.log(`ERROR`);
+        }
+    });
+}
+
 
 
