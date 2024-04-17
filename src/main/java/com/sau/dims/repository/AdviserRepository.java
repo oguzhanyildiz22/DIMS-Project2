@@ -11,5 +11,5 @@ import java.util.List;
 public interface AdviserRepository extends JpaRepository<Adviser,Integer> {
 
     @Query("SELECT a FROM Adviser AS a ORDER BY a.id ASC")
-    List<Adviser> findAllDescById();
+    List<Adviser> findAllAscById();
 }

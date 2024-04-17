@@ -26,7 +26,7 @@ public class AdviserController {
 
     @GetMapping("/adviser")
     public String getAdviser(Model model){
-        List<Adviser> advisers = adviserRepository.findAllDescById();
+        List<Adviser> advisers = adviserRepository.findAllAscById();
         model.addAttribute("advisers", advisers);
         return "adviser/index";
     }
