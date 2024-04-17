@@ -69,7 +69,6 @@ public class AdviserController {
     }
     @PostMapping("/adviser/delete/{id}")
     public String deleteAdviser(@PathVariable int id){
-        System.out.println("id:" + id);
         adviserRepository.deleteById(id);
         return "redirect:/adviser";
     }
