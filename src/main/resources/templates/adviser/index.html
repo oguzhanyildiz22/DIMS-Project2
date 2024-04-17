@@ -40,9 +40,6 @@
             <td th:text="${c.name}"></td>
             <td th:text="${c.department}"></td>
             <td>
-                <a th:href="@{/adviser/update/{id}(id=${c.id})}" class="btn btn-warning">
-                    <i class="fa-solid fa-pen"></i> Update
-                </a>
                 <button class="btn btn-warning update-button" data-toggle="modal" data-target="#updateAdviserModalCenter" th:id="${c.id}">
                     <i class="fa-solid fa-pen"></i> Update
                 </button>

@@ -4,14 +4,12 @@ import com.sau.dims.model.Adviser;
 import com.sau.dims.repository.AdviserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 /*
@@ -32,12 +30,6 @@ public class AdviserController {
         model.addAttribute("advisers", advisers);
         return "adviser/index";
     }
-    @GetMapping("/adviser/add")
-    public String addAdviser(Model model){
-        Adviser adviser = new Adviser();
-        model.addAttribute("adviser",adviser);
-        return "adviser/add";
-    }
     @PostMapping("/adviser/add")
     public String addAdviser(@Valid Adviser adviser, BindingResult result){
         if (result.hasErrors()){
@@ -52,18 +44,15 @@ public class AdviserController {
     @GetMapping("/adviser/update/{id}")
     @ResponseBody
     public Adviser updateAdviser(@PathVariable int id,Model model){
-        Adviser adviser = adviserRepository.findById(id).orElseThrow(
+        return adviserRepository.findById(id).orElseThrow(
                 ()-> {throw new RuntimeException("Adviser not found!:"+id);}
         );
-        System.out.println(adviser);
-        return adviser;
     }
     @PostMapping("/adviser/update")
     public String updateAdviser(@Valid Adviser adviser, BindingResult result){
         if (result.hasErrors()){
             return "redirect:/adviser";
         }
-        System.out.println("2: " + adviser );
         adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
         adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
 
