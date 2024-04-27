@@ -27,7 +27,7 @@ public class StudyController {
     public String studyAdd(Model model){
         Study study = new Study();
         model.addAttribute("study", study);
-        return "/study/addstudy";
+        return "/study/add";
     }
 
     @PostMapping("/study/add")
@@ -44,7 +44,7 @@ public class StudyController {
     public String studyUpdate (@RequestParam("id") int id, Model model){
         Optional<Study> study = studyRepository.findById(id);
         model.addAttribute("study", study);
-        return "/study/updatestudy";
+        return "/study/update";
      }
 
      @PostMapping("/study/update")
@@ -63,7 +63,7 @@ public class StudyController {
             throw new RuntimeException("id is not found = " + id);
         }
         model.addAttribute("study", study);
-        return "/study/deletestudy";
+        return "/study/delete";
      }
 
      @PostMapping("/study/delete")
