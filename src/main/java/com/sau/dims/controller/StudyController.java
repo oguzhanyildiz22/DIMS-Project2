@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @Controller
 public class StudyController {
@@ -18,16 +17,9 @@ public class StudyController {
 
     @GetMapping("/study")
     public String getStudy(Model model){
-        Iterable<Study> studyList = studyRepository.findAll();
+        Iterable<Study> studyList = studyRepository.findAllAscById();
         model.addAttribute("studyList", studyList);
         return "/study/index";
-    }
-
-    @GetMapping("/study/add")
-    public String studyAdd(Model model){
-        Study study = new Study();
-        model.addAttribute("study", study);
-        return "/study/addstudy";
     }
 
     @PostMapping("/study/add")
@@ -40,11 +32,10 @@ public class StudyController {
         return "redirect:/study";
     }
 
-    @GetMapping("/study/update")
-    public String studyUpdate (@RequestParam("id") int id, Model model){
-        Optional<Study> study = studyRepository.findById(id);
-        model.addAttribute("study", study);
-        return "/study/updatestudy";
+    @GetMapping("/study/update/{id}")
+    @ResponseBody
+    public Study studyUpdate (@PathVariable int id, Model model){
+        return studyRepository.findById(id).orElseThrow(()->{throw new RuntimeException("Study not found!"+id);});
      }
 
      @PostMapping("/study/update")
@@ -56,21 +47,18 @@ public class StudyController {
         return "redirect:/study";
      }
 
-     @GetMapping("/study/delete")
-    public String studyDelete(@RequestParam("id") int id, Model model){
-        Optional<Study> study = studyRepository.findById(id);
-        if(study.isEmpty()){
-            throw new RuntimeException("id is not found = " + id);
-        }
-        model.addAttribute("study", study);
-        return "/study/deletestudy";
+     @GetMapping("/study/delete/{id}")
+    public String studyDelete(@PathVariable int id, Model model){
+
+        Study study = studyRepository.findById(id).orElseThrow(
+                ()-> {throw new RuntimeException("Study not found!:"+id);}
+        );
+        model.addAttribute("study",study);
+        return "redirect:/study";
      }
 
-     @PostMapping("/study/delete")
-    public String studyDelete(@RequestParam("id") int id, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "redirect:/study";
-        }
+     @PostMapping("/study/delete/{id}")
+    public String studyDelete(@PathVariable int id){
         studyRepository.deleteById(id);
         return "redirect:/study";
      }
