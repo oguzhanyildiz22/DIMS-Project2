@@ -56,7 +56,7 @@ public class AdviserStudyController {
     }
 
 
-    @PostMapping("/adviser/update")
+    @PostMapping("/adviserstudy/update")
     public String updateAdviser(@ModelAttribute AdviserStudy adviserStudy){
         adviserStudyRepository.save(adviserStudy);
         return "redirect:/adviserstudy";
