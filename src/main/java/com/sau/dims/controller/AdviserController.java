@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.regex.Pattern;
 
-/*
- GET adviser page
- Add adviser
- Update adviser
- Delete adviser
- */
 
 @Controller
 public class AdviserController {
@@ -31,9 +25,11 @@ public class AdviserController {
         return "adviser/index";
     }
     @PostMapping("/adviser/add")
-    public String addAdviser(@Valid Adviser adviser, BindingResult result){
+    public String addAdviser(@Valid Adviser adviser, BindingResult result, Model model){
         if (result.hasErrors()){
-            return "redirect:/adviser";
+            model.addAttribute("adviser",adviser);
+            model.addAttribute("error",result.getAllErrors());
+            return "/adviser/add";
         }
         adviser.setName(convertFirstLetterToUpperCase(adviser.getName()));
         adviser.setDepartment(convertFirstLetterToUpperCase(adviser.getDepartment()));
@@ -43,7 +39,7 @@ public class AdviserController {
     }
     @GetMapping("/adviser/update/{id}")
     @ResponseBody
-    public Adviser updateAdviser(@PathVariable int id,Model model){
+    public Adviser updateAdviser(@PathVariable int id){
         return adviserRepository.findById(id).orElseThrow(
                 ()-> {throw new RuntimeException("Adviser not found!:"+id);}
         );
@@ -60,16 +56,16 @@ public class AdviserController {
         return "redirect:/adviser";
     }
     @GetMapping("/adviser/delete/{id}")
-    public String deleteAdviser(@PathVariable int id, Model model){
-        Adviser adviser = adviserRepository.findById(id).orElseThrow(
+    @ResponseBody
+    public Adviser deleteAdviser(@PathVariable int id){
+        return adviserRepository.findById(id).orElseThrow(
                 ()-> {throw new RuntimeException("Adviser not found!:"+id);}
         );
-        model.addAttribute("adviser", adviser);
-        return "redirect:/adviser";
     }
-    @PostMapping("/adviser/delete/{id}")
-    public String deleteAdviser(@PathVariable int id){
-        adviserRepository.deleteById(id);
+    @PostMapping("/adviser/delete")
+    public String deleteAdviser(Adviser adviser){
+        adviserRepository.delete(adviser);
+        System.out.println("Adviser is deleted:"+ adviser.getId());
         return "redirect:/adviser";
     }
 
