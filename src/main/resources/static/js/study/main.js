@@ -20,21 +20,24 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    $('.delete-button').on('click', function(event) {
+        event.preventDefault();
+
+        let studyId = $(this).attr('id');
+        $.get(`/study/delete/${studyId}`, function(study) {
+            $('#deleteId').val(study.id);
+            $('#deleteTitle').val(study.title);
+            $('#deleteDescription').val(study.description);
+
+            $('#deleteStudyModalCenter').modal('show');
+        }).fail(function() {
+            console.error("Error loading study data");
+        });
+
+    });
+});
+
+$(document).ready(function() {
     $('#modals-container').load('modals/study/modals-study.html');
 });
 
-function Delete(id) {
-    console.log(id);
-    let ret = confirm(`${id} will be deleted!`);
-    if (!ret) return;
-    $.ajax({
-        url: `/study/delete/${id}`,
-        type: "POST",
-        success: function() {
-            window.location.href = '/study';
-        },
-        error: function(xhr, status, error) {
-            console.log(`ERROR`);
-        }
-    });
-}

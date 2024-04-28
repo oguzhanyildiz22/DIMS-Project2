@@ -21,24 +21,28 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    $('.delete-button').on('click', function(event) {
+        event.preventDefault();
+
+        let adviserId = $(this).attr('id');
+        $.get(`/adviser/delete/${adviserId}`, function(adviser) {
+            $('#deleteIdEdit').val(adviser.id);
+            $('#deleteNameEdit').val(adviser.name);
+            $('#deleteDepartmentEdit').val(adviser.department);
+
+            $('#deleteAdviserModalCenter').modal('show');
+        }).fail(function() {
+            console.error("Error loading adviser data");
+        });
+
+    });
+});
+
+
+$(document).ready(function() {
     $('#modals-container').load('modals/adviser/modals-adviser.html');
 });
 
-function Delete(id) {
-    console.log(id);
-    let ret = confirm(`${id} will be deleted!`);
-    if (!ret) return;
-    $.ajax({
-        url: `/adviser/delete/${id}`,
-        type: "POST",
-        success: function() {
-            window.location.href = '/adviser';
-        },
-        error: function(xhr, status, error) {
-            console.log(`ERROR`);
-        }
-    });
-}
 
 
 

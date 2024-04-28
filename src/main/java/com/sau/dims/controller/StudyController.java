@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class StudyController {
@@ -35,7 +36,7 @@ public class StudyController {
 
     @GetMapping("/study/update/{id}")
     @ResponseBody
-    public Study studyUpdate (@PathVariable int id, Model model){
+    public Study studyUpdate (@PathVariable int id){
         return studyRepository.findById(id).orElseThrow(()->{throw new RuntimeException("Study not found!"+id);});
      }
 
@@ -49,18 +50,16 @@ public class StudyController {
      }
 
      @GetMapping("/study/delete/{id}")
-    public String studyDelete(@PathVariable int id, Model model){
-
-        Study study = studyRepository.findById(id).orElseThrow(
+     @ResponseBody
+    public Study studyDelete(@PathVariable int id){
+        return studyRepository.findById(id).orElseThrow(
                 ()-> {throw new RuntimeException("Study not found!:"+id);}
         );
-        model.addAttribute("study",study);
-        return "redirect:/study";
      }
 
-     @PostMapping("/study/delete/{id}")
-    public String studyDelete(@PathVariable int id){
-        studyRepository.deleteById(id);
+     @PostMapping("/study/delete")
+    public String studyDelete(Study study){
+        studyRepository.delete(study);
         return "redirect:/study";
      }
 
