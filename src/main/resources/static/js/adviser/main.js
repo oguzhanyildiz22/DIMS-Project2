@@ -40,7 +40,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    $('#modals-container').load('modals/adviser/modals.html');
+    $('#modals-container').load('modals/adviser/modals-adviser.html');
 });
 
 
