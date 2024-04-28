@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.regex.Pattern;
+
 @Controller
 public class StudyController {
     @Autowired
@@ -25,11 +27,15 @@ public class StudyController {
     }
 
     @PostMapping("/study/add")
-    public String studyAdd(@Valid Study study, BindingResult bindingResult){
+    public String studyAdd(@Valid Study study, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            return "redirect:/study";
+            model.addAttribute("study",study);
+            model.addAttribute("error",bindingResult.getAllErrors());
+            return "/study/add";
         }
 
+        study.setTitle(convertFirstLetterToUpperCase(study.getTitle()));
+        study.setDescription(convertFirstLetterToUpperCase(study.getDescription()));
         studyRepository.save(study);
         return "redirect:/study";
     }
@@ -45,7 +51,9 @@ public class StudyController {
         if(bindingResult.hasErrors()){
             return "redirect:/study";
         }
-        studyRepository.save(study);
+         study.setTitle(convertFirstLetterToUpperCase(study.getTitle()));
+         study.setDescription(convertFirstLetterToUpperCase(study.getDescription()));
+         studyRepository.save(study);
         return "redirect:/study";
      }
 
@@ -63,5 +71,7 @@ public class StudyController {
         return "redirect:/study";
      }
 
-
+    private String convertFirstLetterToUpperCase(String input){
+        return Pattern.compile("\\b(\\w)").matcher(input).replaceAll(m -> m.group().toUpperCase());
+    }
 }
