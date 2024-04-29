@@ -1,5 +1,7 @@
 package com.sau.dims.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -26,6 +28,7 @@ public class Study {
     @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Description can not contain any non-letter!")
     private String description;
 
-    @OneToMany(mappedBy = "id",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("study")
+    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private List<AdviserStudy> adviserStudies;
 }

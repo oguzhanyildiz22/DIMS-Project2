@@ -1,17 +1,24 @@
 package com.sau.dims.controller;
 
 
+import com.sau.dims.model.Adviser;
 import com.sau.dims.model.AdviserStudy;
+import com.sau.dims.model.Study;
+import com.sau.dims.repository.AdviserRepository;
 import com.sau.dims.repository.AdviserStudyRepository;
+import com.sau.dims.repository.StudyRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -22,6 +29,11 @@ public class AdviserStudyController {
 
     @Autowired
     private AdviserStudyRepository adviserStudyRepository;
+
+    @Autowired
+    private AdviserRepository adviserRepository;
+    @Autowired
+    private StudyRepository studyRepository;
 
     //retrive all the data in adviser_study table
 
@@ -77,6 +89,26 @@ public class AdviserStudyController {
         adviserStudyRepository.deleteById(id);
         return "redirect:/adviserstudy";
     }
+
+    @PostMapping("/adviserstudy/supervise")
+    public String superviseAdviser(@Valid @RequestParam int adviserId, @RequestParam int studyId, @RequestParam String involvedDate, @RequestParam String performance) {
+
+            Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
+            Study study = studyRepository.findById(studyId).orElseThrow(() -> new EntityNotFoundException("Study not found"));
+
+            LocalDate date = LocalDate.parse(involvedDate);
+
+            AdviserStudy adviserStudy = new AdviserStudy();
+            adviserStudy.setAdviser(adviser);
+            adviserStudy.setStudy(study);
+            adviserStudy.setAdviserInvolvedDate(date);
+            adviserStudy.setPerformance(Long.valueOf(performance));
+
+            adviserStudyRepository.save(adviserStudy);
+
+        return "redirect:/adviser";
+    }
+
 
 
 }

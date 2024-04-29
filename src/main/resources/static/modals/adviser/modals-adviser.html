@@ -93,3 +93,43 @@
         </div>
     </form>
 </div>
+
+<!-- Supervise Modal -->
+<div class="modal fade" id="superviseAdviserModalCenter" tabindex="-1" role="dialog" aria-labelledby="superviseAdviserModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="superviseAdviserModalCenterTitle">Supervise Adviser</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/adviserstudy/supervise">
+                    <div class="form-group">
+                        <label for="adviserName">Adviser:</label>
+                        <input type="text" class="form-control" id="adviserName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="studySelect">Select Study:</label>
+                        <select class="form-control" id="studySelect" name="studyId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="involvedDate">Involved Date:</label>
+                        <input type="date" class="form-control" id="involvedDate" name="involvedDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="performance">Performance:</label>
+                        <input type="text" class="form-control" id="performance" name="performance">
+                    </div>
+                    <input type="hidden" id="adviserId" name="adviserId">
+                    <button type="submit" class="btn btn-primary">Supervise</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
