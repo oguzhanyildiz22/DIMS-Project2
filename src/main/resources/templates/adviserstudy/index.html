@@ -6,7 +6,7 @@
     <link th:href="@{css/style.css}" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../static/main.js" th:src="@{js/main.js}"></script>
+    <script type="text/javascript" src="../static/main.js" th:src="@{js/adviser-study/main.js}"></script>
     <meta charset="UTF-8">
     <title>Supervise Page</title>
 </head>
@@ -20,7 +20,9 @@
         <thead>
         <tr>
             <th scope="col">ADVISER</th>
+            <th scope="col">DEPARTMENT</th>
             <th scope="col">STUDY</th>
+            <th scope="col">TITLE</th>
             <th scope="col">INVOLVED DATE</th>
             <th scope="col">OPERATIONS</th>
         </tr>
@@ -34,7 +36,7 @@
             <td th:text="${c.adviserInvolvedDate}"></td>
 
             <td>
-                <button class="btn btn-warning update-button" data-toggle="modal" data-target="#updateAdviseryModalCenter" th:id="${c.id}">
+                <button class="btn btn-warning update-button" data-toggle="modal" data-target="#updateAdviserStudyyModalCenter" th:id="${c.id}">
                     <i class="fa-solid fa-pen"></i> Update
                 </button>
                 <a th:param="${c.id}" th:onclick="javascript:Delete(this.getAttribute('param'))" class="btn btn-danger" style="color: white"><i class="fa-solid fa-trash"></i> Delete</a>
@@ -49,5 +51,4 @@
 
 </body>
 
-</body>
 </html>
