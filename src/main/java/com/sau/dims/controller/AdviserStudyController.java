@@ -91,7 +91,7 @@ public class AdviserStudyController {
     }
 
     @PostMapping("/adviser-study/supervise-for-adviser")
-    public String superviseAdviser(@Valid @RequestParam int adviserId, @RequestParam int studyId, @RequestParam String involvedDate, @RequestParam String performance) {
+    public String superviseAdviser(@Valid @RequestParam int adviserId, @RequestParam int studyId, @RequestParam String involvedDate, @RequestParam int performance) {
 
             Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
             Study study = studyRepository.findById(studyId).orElseThrow(() -> new EntityNotFoundException("Study not found"));
@@ -105,14 +105,14 @@ public class AdviserStudyController {
             adviserStudy.setAdviser(adviser);
             adviserStudy.setStudy(study);
             adviserStudy.setAdviserInvolvedDate(date);
-            adviserStudy.setPerformance(Long.valueOf(performance));
+            adviserStudy.setPerformance((long) performance);
 
             adviserStudyRepository.save(adviserStudy);
 
         return "redirect:/adviser";
     }
     @PostMapping("/adviser-study/supervise-for-study")
-    public String superviseStudy(@Valid @RequestParam int adviserId, @RequestParam int studyId, @RequestParam String involvedDate, @RequestParam String performance) {
+    public String superviseStudy(@Valid @RequestParam int adviserId, @RequestParam int studyId, @RequestParam String involvedDate, @RequestParam int performance) {
 
         Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
         Study study = studyRepository.findById(studyId).orElseThrow(() -> new EntityNotFoundException("Study not found"));
@@ -126,7 +126,7 @@ public class AdviserStudyController {
         adviserStudy.setAdviser(adviser);
         adviserStudy.setStudy(study);
         adviserStudy.setAdviserInvolvedDate(date);
-        adviserStudy.setPerformance(Long.valueOf(performance));
+        adviserStudy.setPerformance((long) performance);
 
         adviserStudyRepository.save(adviserStudy);
 
