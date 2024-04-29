@@ -24,6 +24,7 @@
             <th scope="col">STUDY</th>
             <th scope="col">TITLE</th>
             <th scope="col">INVOLVED DATE</th>
+            <th scope="col">PERFORMANCE</th>
             <th scope="col">OPERATIONS</th>
         </tr>
         </thead>
@@ -34,6 +35,7 @@
             <td th:text="${c.study.title}"></td>
             <td th:text="${c.study.description}"></td>
             <td th:text="${c.adviserInvolvedDate}"></td>
+            <td th:text="${c.performance}"></td>
 
             <td>
                 <button class="btn btn-warning update-button" data-toggle="modal" data-target="#updateAdviserStudyyModalCenter" th:id="${c.id}">
