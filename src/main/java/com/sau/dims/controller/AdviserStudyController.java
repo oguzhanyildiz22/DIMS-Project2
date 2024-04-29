@@ -138,6 +138,18 @@ public class AdviserStudyController {
         return "redirect:/adviserstudy";
     }
 
+    @PostMapping("/adviser-study/update")
+    public String updateAdviserStudyForBridgeTable(@RequestParam int adviserStudyId, @RequestParam String date, @RequestParam int performance){
+        AdviserStudy adviserStudy = adviserStudyRepository.findById(adviserStudyId).orElseThrow(()-> new EntityNotFoundException("adviserStudy"));
+        adviserStudy.setPerformance((long) performance);
+        adviserStudy.setAdviserInvolvedDate(LocalDate.parse(date));
+
+        adviserStudyRepository.save(adviserStudy);
+        return "redirect:/adviserstudy";
+
+    }
+
+
 
 
 }
