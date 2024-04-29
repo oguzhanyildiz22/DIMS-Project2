@@ -28,5 +28,7 @@ public class AdviserStudy {
 
     private LocalDate adviserInvolvedDate;
 
+    private Long performance;
+
 
 }
