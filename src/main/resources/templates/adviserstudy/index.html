@@ -41,7 +41,9 @@
                 <button class="btn btn-warning update-button" data-toggle="modal" data-target="#updateAdviserStudyyModalCenter" th:id="${c.id}">
                     <i class="fa-solid fa-pen"></i> Update
                 </button>
-                <a th:param="${c.id}" th:onclick="javascript:Delete(this.getAttribute('param'))" class="btn btn-danger" style="color: white"><i class="fa-solid fa-trash"></i> Delete</a>
+                <button class="btn btn-danger delete-button" data-toggle="modal" data-target="#deleteAdviserStudyModalCenter" th:id="${c.id}">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
             </td>
         </tr>
         </tbody>
