@@ -92,3 +92,40 @@
         </div>
     </form>
 </div>
+
+<!-- Supervise Modal -->
+<div class="modal fade" id="superviseStudyModalCenter" tabindex="-1" role="dialog" aria-labelledby="superviseStudyModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="superviseStudyModalCenterTitle">Supervise Study</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/adviser-study/supervise-for-study">
+                    <div class="form-group">
+                        <label for="studyName">Study:</label>
+                        <input type="text" class="form-control" id="studyName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="adviserSelect">Select Adviser:</label>
+                        <select class="form-control" id="adviserSelect" name="adviserId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="involvedDate">Involved Date:</label>
+                        <input type="date" class="form-control" id="involvedDate" name="involvedDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="performance">Performance:</label>
+                        <input type="text" class="form-control" id="performance" name="performance">
+                    </div>
+                    <input type="hidden" id="studyId" name="studyId">
+                    <button type="submit" class="btn btn-primary">Supervise</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
