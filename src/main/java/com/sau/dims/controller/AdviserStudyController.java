@@ -90,7 +90,7 @@ public class AdviserStudyController {
         return "redirect:/adviserstudy";
     }
 
-    @PostMapping("/adviserstudy/supervise")
+    @PostMapping("/adviser-study/supervise-for-adviser")
     public String superviseAdviser(@Valid @RequestParam int adviserId, @RequestParam int studyId, @RequestParam String involvedDate, @RequestParam String performance) {
 
             Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
@@ -110,6 +110,27 @@ public class AdviserStudyController {
             adviserStudyRepository.save(adviserStudy);
 
         return "redirect:/adviser";
+    }
+    @PostMapping("/adviser-study/supervise-for-study")
+    public String superviseStudy(@Valid @RequestParam int adviserId, @RequestParam int studyId, @RequestParam String involvedDate, @RequestParam String performance) {
+
+        Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
+        Study study = studyRepository.findById(studyId).orElseThrow(() -> new EntityNotFoundException("Study not found"));
+
+        if (involvedDate == null){
+            involvedDate = String.valueOf(LocalDate.now());
+        }
+        LocalDate date = LocalDate.parse(involvedDate);
+
+        AdviserStudy adviserStudy = new AdviserStudy();
+        adviserStudy.setAdviser(adviser);
+        adviserStudy.setStudy(study);
+        adviserStudy.setAdviserInvolvedDate(date);
+        adviserStudy.setPerformance(Long.valueOf(performance));
+
+        adviserStudyRepository.save(adviserStudy);
+
+        return "redirect:/study";
     }
 
 
