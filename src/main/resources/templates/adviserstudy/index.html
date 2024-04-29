@@ -27,8 +27,10 @@
         </thead>
         <tbody>
         <tr th:each="c:${adviserStudies}">
-            <td th:text="${c.adviser}"></td>
-            <td th:text="${c.study}"></td>
+            <td th:text="${c.adviser.name}"></td>
+            <td th:text="${c.adviser.department}"></td>
+            <td th:text="${c.study.title}"></td>
+            <td th:text="${c.study.description}"></td>
             <td th:text="${c.adviserInvolvedDate}"></td>
 
             <td>

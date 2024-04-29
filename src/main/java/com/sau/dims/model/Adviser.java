@@ -28,7 +28,7 @@ public class Adviser {
     @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Department can not contain any non-letter!")
     private String department;
 
-    @JsonIgnoreProperties("adviser")
+    @JsonIgnore
     @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private List<AdviserStudy> adviserStudies;
 

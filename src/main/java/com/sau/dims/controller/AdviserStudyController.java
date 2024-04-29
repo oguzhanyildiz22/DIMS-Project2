@@ -96,6 +96,9 @@ public class AdviserStudyController {
             Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
             Study study = studyRepository.findById(studyId).orElseThrow(() -> new EntityNotFoundException("Study not found"));
 
+            if (involvedDate == null){
+                involvedDate = String.valueOf(LocalDate.now());
+            }
             LocalDate date = LocalDate.parse(involvedDate);
 
             AdviserStudy adviserStudy = new AdviserStudy();
