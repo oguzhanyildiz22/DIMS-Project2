@@ -1,7 +1,6 @@
 package com.sau.dims.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -9,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -29,8 +29,11 @@ public class Adviser {
     private String department;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
-    private List<AdviserStudy> adviserStudies;
+    @OneToMany(mappedBy = "adviser",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true)
+    private List<AdviserStudy> adviserStudies = new ArrayList<>();
 
 
 }

@@ -29,6 +29,9 @@ public class Study {
     private String description;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
-    private List<AdviserStudy> adviserStudies;
+    @OneToMany(mappedBy = "study",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true)
+    private List<AdviserStudy> adviserStudies = new ArrayList<>();
 }
