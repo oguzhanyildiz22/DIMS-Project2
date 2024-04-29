@@ -10,13 +10,9 @@ import com.sau.dims.repository.StudyRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import java.time.LocalDate;
 import java.util.List;
@@ -96,7 +92,7 @@ public class AdviserStudyController {
             Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
             Study study = studyRepository.findById(studyId).orElseThrow(() -> new EntityNotFoundException("Study not found"));
 
-            if (involvedDate == null){
+            if (involvedDate == null || involvedDate.isBlank()){
                 involvedDate = String.valueOf(LocalDate.now());
             }
             LocalDate date = LocalDate.parse(involvedDate);
@@ -117,7 +113,7 @@ public class AdviserStudyController {
         Adviser adviser = adviserRepository.findById(adviserId).orElseThrow(() -> new EntityNotFoundException("Adviser not found"));
         Study study = studyRepository.findById(studyId).orElseThrow(() -> new EntityNotFoundException("Study not found"));
 
-        if (involvedDate == null){
+        if (involvedDate == null || involvedDate.isBlank()){
             involvedDate = String.valueOf(LocalDate.now());
         }
         LocalDate date = LocalDate.parse(involvedDate);
