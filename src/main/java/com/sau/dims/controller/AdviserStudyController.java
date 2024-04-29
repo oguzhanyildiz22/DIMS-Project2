@@ -132,6 +132,11 @@ public class AdviserStudyController {
 
         return "redirect:/study";
     }
+    @PostMapping("/adviser-study/delete")
+    public String deleteAdviserStudyForBridgeTable(@RequestParam int adviserStudyId){
+        adviserStudyRepository.deleteById(adviserStudyId);
+        return "redirect:/adviserstudy";
+    }
 
 
 
