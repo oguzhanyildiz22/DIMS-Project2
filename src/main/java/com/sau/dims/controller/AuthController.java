@@ -7,10 +7,7 @@ import com.sau.dims.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,17 +16,23 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+
     @PostMapping("register")
-    public String register(@RequestBody UserDTO user) {
-        String token = authService.register(user);
-        return token;
+    @ResponseBody
+    public String register(UserDTO user) {
+        return authService.register(user);
     }
 
-    @PostMapping("login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
+
+    @PostMapping("/login")
+    @ResponseBody
+    public ResponseEntity<AuthResponseDTO> login(LoginDTO loginDTO){
 
         AuthResponseDTO authResponseDTO = authService.login(loginDTO);
         return new ResponseEntity<>(authResponseDTO, HttpStatus.OK);
 
     }
+
+    // to do: login sonucu bu tokenı al. istek atılırken header kısmına bu tokenı koy. istek atılan methodda bu headerı kontrol et. önce isValid sonra Rol kontrolü
+
 }
